@@ -33,4 +33,4 @@ Bu sürücü sayfayı (metin dahil) **1 bit grafik** olarak `GS v 0` ESC/POS ras
 - Windows 11 (26100) üzerinde test edildi.
 
 ## Lisans
-Lisans henüz eklenmedi.
+[MIT](LICENSE)
