@@ -1,0 +1,164 @@
+*GPDFileName: "POS80C.gpd"
+*GPDFileVersion: "1.0.0"
+*GPDSpecVersion: "1.0.1"
+*ModelName: "POS-80C Raster (Berrak)"
+*MasterUnits: PAIR(203, 203)
+*Include: "StdNames.gpd"
+*PrinterType: SERIAL
+
+*%******************************************************************************************
+*%  POS-80C 80 mm termal fis yazicisi - ESC/POS raster (GS v 0) Unidrv minidriver
+*%  Tum sayfa (metin dahil) 1 bit grafik olarak gonderilir: kod sayfasi sorunu yoktur.
+*%******************************************************************************************
+
+*Feature: Orientation
+{
+    *rcNameID: =ORIENTATION_DISPLAY
+    *DefaultOption: PORTRAIT
+    *Option: PORTRAIT
+    {
+        *rcNameID: =PORTRAIT_DISPLAY
+    }
+}
+
+*Feature: InputBin
+{
+    *rcNameID: =PAPER_SOURCE_DISPLAY
+    *DefaultOption: AUTO
+    *Option: AUTO
+    {
+        *rcNameID: =AUTO_DISPLAY
+    }
+}
+
+*Feature: Resolution
+{
+    *rcNameID: =RESOLUTION_DISPLAY
+    *DefaultOption: Option1
+    *Option: Option1
+    {
+        *Name: "203 x 203 dpi"
+        *DPI: PAIR(203, 203)
+        *TextDPI: PAIR(203, 203)
+        *SpotDiameter: 170
+        *PinsPerLogPass: 24
+        *PinsPerPhysPass: 24
+        *Command: CmdSendBlockData
+        {
+            *Cmd: "<1D 76 30 00>" %c{RasterDataWidthInBytes} "<00>" %c{RasterDataHeightInPixels} "<00>"
+        }
+    }
+}
+
+*Feature: PaperSize
+{
+    *rcNameID: =PAPER_SIZE_DISPLAY
+    *DefaultOption: Option3
+
+    *Option: Option1
+    {
+        *Name: "80mm x 100mm"
+        *PageDimensions: PAIR(576, 800)
+        *PrintableArea: PAIR(576, 800)
+        *PrintableOrigin: PAIR(0, 0)
+    }
+    *Option: Option2
+    {
+        *Name: "80mm x 150mm"
+        *PageDimensions: PAIR(576, 1200)
+        *PrintableArea: PAIR(576, 1200)
+        *PrintableOrigin: PAIR(0, 0)
+    }
+    *Option: Option3
+    {
+        *Name: "80mm x 200mm"
+        *PageDimensions: PAIR(576, 1600)
+        *PrintableArea: PAIR(576, 1600)
+        *PrintableOrigin: PAIR(0, 0)
+    }
+    *Option: Option4
+    {
+        *Name: "80mm x 297mm"
+        *PageDimensions: PAIR(576, 2376)
+        *PrintableArea: PAIR(576, 2376)
+        *PrintableOrigin: PAIR(0, 0)
+    }
+    *Option: CUSTOMSIZE
+    {
+        *rcNameID: =USER_DEFINED_SIZE_DISPLAY
+        *MinSize: PAIR(24, 24)
+        *MaxSize: PAIR(576, 8000)
+        *MaxPrintableWidth: 576
+        *MinLeftMargin: 0
+        *TopMargin: 0
+        *BottomMargin: 0
+        *CenterPrintable?: TRUE
+        *CursorOrigin: PAIR(0, 0)
+    }
+}
+
+*Feature: Halftone
+{
+    *rcNameID: =HALFTONING_DISPLAY
+    *DefaultOption: HT_PATSIZE_SUPERCELL_M
+    *Option: HT_PATSIZE_AUTO
+    {
+        *rcNameID: =HT_AUTO_SELECT_DISPLAY
+    }
+    *Option: HT_PATSIZE_SUPERCELL_M
+    {
+        *rcNameID: =HT_SUPERCELL_DISPLAY
+    }
+    *Option: HT_PATSIZE_6x6_M
+    {
+        *rcNameID: =HT_DITHER6X6_DISPLAY
+    }
+    *Option: HT_PATSIZE_8x8_M
+    {
+        *rcNameID: =HT_DITHER8X8_DISPLAY
+    }
+}
+
+*Feature: ColorMode
+{
+    *rcNameID: =COLOR_PRINTING_MODE_DISPLAY
+    *DefaultOption: Mono
+    *Option: Mono
+    {
+        *rcNameID: =MONO_DISPLAY
+        *DevNumOfPlanes: 1
+        *DevBPP: 1
+        *Color?: FALSE
+    }
+}
+
+*AbsXMovesRightOnly?: FALSE
+*CursorXAfterCR: AT_CURSOR_X_ORIGIN
+*EjectPageWithFF?: FALSE
+*UseSpaceForXMove?: FALSE
+*XMoveUnit: 203
+*YMoveAttributes: LIST(SEND_CR_FIRST)
+*YMoveUnit: 203
+
+*CursorXAfterSendBlockData: AT_GRXDATA_END
+*CursorYAfterSendBlockData: AUTO_INCREMENT
+*OptimizeLeftBound?: FALSE
+*OutputDataFormat: H_BYTE
+*RasterSendAllData?: TRUE
+
+*Command: CmdCR: ""
+*Command: CmdLF: ""
+*Command: CmdFF: ""
+*Command: CmdXMoveAbsolute: ""
+*Command: CmdYMoveRelDown: ""
+
+*Command: CmdStartDoc
+{
+    *Order: DOC_SETUP.1
+    *Cmd: "<1B 40>"
+}
+*Command: CmdEndPage
+{
+    *Order: PAGE_FINISH.1
+    *Cmd: "<0A 0A 0A 1D 56 42 00>"
+}

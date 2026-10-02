@@ -1,0 +1,40 @@
+; POS80C.INF - POS-80C 80mm termal fis yazicisi, ESC/POS raster Unidrv minidriver
+; Berrak Bilisim
+
+[Version]
+Signature="$Windows NT$"
+Provider=%Provider%
+LayoutFile=ntprint.inf
+ClassGUID={4D36E979-E325-11CE-BFC1-08002BE10318}
+Class=Printer
+DriverVer=10/02/2026,1.0.0.0
+CatalogFile=POS80C.cat
+
+[Manufacturer]
+"Berrak Bilisim"=Berrak, NTamd64
+
+[Berrak.NTamd64]
+"POS-80C Raster (Berrak)" = POS80CDRV, USBPRINT\PrinterPOS-80C60EB, PrinterPOS-80C60EB, USB\VID_0483&PID_5743
+
+[POS80CDRV]
+CopyFiles=POS80C.Files
+DataFile=POS80C.GPD
+DataSection=UNIDRV_DATA
+Include=NTPRINT.INF
+Needs=UNIDRV.OEM,UNIDRV_DATA
+
+[POS80C.Files]
+POS80C.GPD
+
+[SourceDisksNames]
+100 = %Disk%
+
+[SourceDisksFiles]
+POS80C.GPD=100
+
+[DestinationDirs]
+DefaultDestDir=66000
+
+[Strings]
+Provider="Berrak Bilisim"
+Disk="POS-80C Raster Driver Disk"
